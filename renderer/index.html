@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Inspection Module</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="renderer.js"></script>
+</head>
+
+<body>
+    <div id="big_wrap">
+        <header id="header">
+            <div class="header-title">
+                <h1>Image Inspector</h1>
+                <p class="sub">Data Inspection Module</p>
+            </div>
+        </header>
+
+        <div id="layout">
+            <nav id="nav_bar">
+                <div id="nav_header">
+                    <button id="btnSidebar" class="icon-btn" aria-label="Toggle sidebar" title="Toggle sidebar">☰</button>
+                    <div class="nav-title">Menu</div>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link"  data-label="Excel Create" title="Excel Create">
+                            <span class="nav-dot"></span>
+                            <span class="label-full">Excel Create</span>
+                            <span class="label-short">Excel</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-label="Geo Verification" title="Geo Verification">
+                            <span class="nav-dot"></span>
+                            <span class="label-full">Geo Verification</span>
+                            <span class="label-short">Geo</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-footer">
+                    <div class="hint">Tip</div>
+                    <div class="hint-text">좌측 메뉴에서 기능을 선택하세요.</div>
+                </div>
+            </nav>
+
+            <main id="main">
+                <div id="main_header">
+                    <h2>엑셀 생성하기</h2>
+                    <p>관찰/표본 데이터를 입력하고 엑셀로 내보낼 수 있습니다.</p>
+                </div>
+
+                <section class="card">
+                    <div class="card-title">작업 시작</div>
+                    <div class="card-body">
+                        <button class="btn primary">엑셀 템플릿 만들기</button>
+                        <button class="btn">엑셀 불러오기</button>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

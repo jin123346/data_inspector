@@ -1,0 +1,467 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+html {
+    color: #111;
+    position: relative;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-size: 12px;
+    line-height: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a,
+address,
+blockquote,
+br,
+fieldset,
+legend,
+label,
+form,
+input,
+select,
+textarea,
+button,
+cite,
+code,
+dl,
+dt,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+iframe,
+ul,
+ol,
+li,
+hr,
+img {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #111;
+    text-decoration: none;
+}
+
+img {
+    border: none;
+    vertical-align: top;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+address {
+    font-style: normal;
+}
+
+/* clearfix */
+.cf {}
+
+.cf::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* hyper link */
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* input outline */
+input:active {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* =========================
+   App Layout
+========================= */
+
+:root {
+    --bg: #0b1220;
+    --panel: #0f1a2b;
+    --panel-2: #0d1726;
+    --card: rgba(255, 255, 255, 0.06);
+    --card-2: rgba(255, 255, 255, 0.09);
+    --line: rgba(255, 255, 255, 0.10);
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.65);
+    --muted-2: rgba(255, 255, 255, 0.45);
+    --accent: #7c5cff;
+    /* 포인트 컬러 */
+    --accent-2: #23c6a0;
+    /* 보조 포인트 */
+    --shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+    --radius: 16px;
+}
+
+* {
+    font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+    background: radial-gradient(1200px 800px at 20% 0%, rgba(124, 92, 255, 0.25), transparent 55%),
+        radial-gradient(900px 600px at 85% 20%, rgba(35, 198, 160, 0.18), transparent 55%),
+        var(--bg);
+    color: var(--text);
+    overflow: hidden;
+}
+
+#big_wrap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+#header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-title{
+    display: flex;
+    align-items: baseline ;
+    gap:12px;
+}
+
+
+
+#header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+#header .sub {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Layout: sidebar + main */
+#layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 0;
+    transition: grid-template-columns 220ms ease;
+}
+
+/* Sidebar */
+#nav_bar {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-right: 1px solid var(--line);
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    will-change: transform, opacity;
+    transition: width 220ms ease, padding 220ms ease;
+    overflow: hidden;
+}
+
+
+
+/* ✅ 접힘 상태: 미니 사이드바 폭 유지 */
+#layout.collapsed {
+    grid-template-columns: 120px 1fr;
+    /* 0px ❌ */
+}
+#layout.collapsed #nav_header {
+    justify-content: space-between;
+}
+
+/* 접힘 상태에서 패딩 줄이기 */
+#layout.collapsed #nav_bar {
+    padding: 14px 10px;
+}
+
+/* 접힘 상태에서 "Menu" 텍스트 숨기기 */
+#layout.collapsed .nav-title {
+    opacity: 1;
+    width: auto;
+    overflow:  block;
+}
+
+/* 접힘 상태에서 메뉴 텍스트 숨기고 점(또는 아이콘)만 남기기 */
+#layout.collapsed .nav-link {
+    justify-content: center;
+    padding: 12px 12px;
+    /* 가운데 정렬 */
+    gap: 10px;
+    font-size: 12px;
+}
+
+#layout.collapsed .nav-link span.nav-dot {
+    margin: 0;
+}
+
+
+
+#layout.collapsed .nav-link::after {
+    content: attr(data-label);
+    /* 접근성/툴팁용(선택) */
+    display: none;
+}
+
+/* 접힘 상태에서 footer 숨기기(원하면) */
+#layout.collapsed .nav-footer {
+    padding: 10px 10px;
+    border-radius: 14px;
+}
+
+#layout.collapsed .hint-text {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* nav_header 정렬: 버튼이 가운데로 오게 */
+
+
+
+#nav_header{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.nav-title {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 4px 10px 2px;
+}
+
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 120ms ease
+    }
+    
+.icon-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-1px);
+}
+
+
+#layout {
+    transition: grid-template-columns 220ms ease;
+}
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 6px;
+}
+
+.nav-item {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 12px;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.03);
+    transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+}
+
+.label-full {
+    display: inline;
+}
+.label-short {
+    display: none;
+}
+
+#layout.collapsed .label-full {
+    display: none;
+}
+
+#layout.collapsed .label-short {
+    display: inline;
+}
+
+.nav-item.active {
+    border-color: rgba(124, 92, 255, 0.55);
+    box-shadow: 0 10px 30px rgba(124, 92, 255, 0.18);
+}
+
+.nav-item.active .nav-link {
+    background: linear-gradient(90deg, rgba(124, 92, 255, 0.22), rgba(255, 255, 255, 0.05));
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    position: relative;
+}
+
+.nav-item.active .nav-dot {
+    background: var(--accent);
+    box-shadow: 0 0 0 5px rgba(124, 92, 255, 0.18);
+}
+
+/* Sidebar footer tip */
+.nav-footer {
+    margin-top: auto;
+    padding: 12px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.hint {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.hint-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* Main */
+#main {
+    padding: 18px 18px 22px;
+    overflow: auto;
+    min-height: 0;
+}
+
+#main_header {
+    padding: 16px 16px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+}
+
+#main_header h2 {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+#main_header p {
+    color: var(--muted);
+}
+
+/* Card */
+.card {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: var(--shadow);
+    padding: 14px 14px 16px;
+}
+
+.card-title {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-1px);
+}
+
+.btn.primary {
+    border-color: rgba(124, 92, 255, 0.55);
+    background: linear-gradient(90deg, rgba(124, 92, 255, 0.35), rgba(124, 92, 255, 0.12));
+}
+
+/* Scrollbar (Windows에서 보기 좋게) */
+#main::-webkit-scrollbar {
+    width: 10px;
+}
+
+#main::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+}
+
+#main::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.12);
+}
