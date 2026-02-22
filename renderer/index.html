@@ -26,14 +26,21 @@
                 </div>
                 <ul class="nav-list">
                     <li class="nav-item active">
-                        <a href="#" class="nav-link"  data-label="Excel Create" title="Excel Create">
+                        <a href="#" class="nav-link"  data-label="Excel" data-view="excel" title="Excel">
                             <span class="nav-dot"></span>
                             <span class="label-full">Excel Create</span>
                             <span class="label-short">Excel</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-label="Geo Verification" title="Geo Verification">
+                        <a href="#" class="nav-link" data-view="review" title="Review">
+                            <span class="nav-dot"></span>
+                            <span class="label-full">Data Review</span>
+                            <span class="label-short">Review</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-label="Geo" data-view="geo" title="Geo">
                             <span class="nav-dot"></span>
                             <span class="label-full">Geo Verification</span>
                             <span class="label-short">Geo</span>
@@ -48,18 +55,7 @@
             </nav>
 
             <main id="main">
-                <div id="main_header">
-                    <h2>엑셀 생성하기</h2>
-                    <p>관찰/표본 데이터를 입력하고 엑셀로 내보낼 수 있습니다.</p>
-                </div>
-
-                <section class="card">
-                    <div class="card-title">작업 시작</div>
-                    <div class="card-body">
-                        <button class="btn primary">엑셀 템플릿 만들기</button>
-                        <button class="btn">엑셀 불러오기</button>
-                    </div>
-                </section>
+                <div id="view" class="view"></div>
             </main>
         </div>
     </div>

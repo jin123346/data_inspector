@@ -1,0 +1,196 @@
+<section class="page">
+    <h2>엑셀 업로드 / 템플릿</h2>
+    <p class="muted">표본/관찰 선택 후 템플릿 생성을 진행합니다.</p>
+
+    <div class="card">
+        <div class="card-title">엑셀 업로드</div>
+        <div class="card-body">
+            <button class="btn primary" id="btnUploadExcel">엑셀 불러오기</button>
+            <button class="btn" id="btnCreateTemplate">템플릿 만들기</button>
+        </div>
+
+        <div class="card-body" style="margin-top:10px;">
+            <div id="excelPath" class="file-chip">선택된 파일: 없음</div>
+            <div id="templateInfo" class="file-chip" style="margin-top:8px;">템플릿 설정: 미선택</div>
+        </div>
+    </div>
+
+    <div class="work-grid">
+        <!-- LEFT: 입력 폼 -->
+        <section class="card">
+            <div class="card-title">행 입력 / 수정</div>
+    
+            <div class="card-body grid2">
+                <div class="field">
+                    <div class="label">DB번호(자동)</div>
+                    <input id="txtDbNo" class="input" type="text" readonly placeholder="자동 생성" />
+                </div>
+    
+                <div class="field">
+                    <div class="label">종고유ID</div>
+                    <input id="txtSpeciesId" class="input" type="text" placeholder="예: 12484" />
+                </div>
+    
+                <div class="field">
+                    <div class="label">국명</div>
+                    <input id="txtKoName" class="input" type="text" placeholder="국명 입력" />
+                </div>
+    
+                <div class="field">
+                    <div class="label">학명</div>
+                    <input id="txtSciName" class="input" type="text" placeholder="학명 입력" />
+                </div>
+    
+                <div class="field">
+                    <div class="label">위도</div>
+                    <input id="txtLat" class="input" type="text" placeholder="36.123..." />
+                </div>
+    
+                <div class="field">
+                    <div class="label">경도</div>
+                    <input id="txtLng" class="input" type="text" placeholder="126.123..." />
+                </div>
+    
+                <div class="field">
+                    <div class="label">채집년월일</div>
+                    <input id="txtColDate" class="input" type="date" />
+                </div>
+    
+                <div class="field">
+                    <div class="label">비고</div>
+                    <input id="txtNote" class="input" type="text" placeholder="선택" />
+                </div>
+            </div>
+    
+            <div class="card-body actions">
+                <button class="btn primary" id="btnAddRow">행 추가</button>
+                <button class="btn" id="btnUpdateRow" disabled>선택 행 업데이트</button>
+                <button class="btn danger" id="btnClearForm">폼 초기화</button>
+            </div>
+    
+            <div class="card-body">
+                <div id="editHint" class="muted">표 아래에서 행을 클릭하면 수정 모드가 됩니다.</div>
+            </div>
+        </section>
+    
+        <!-- RIGHT: 미리보기 테이블 -->
+        <section class="card">
+            <div class="card-title">엑셀 미리보기</div>
+            <div class="card-body table-wrap">
+                <table class="grid-table" id="previewTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>DB번호</th>
+                            <th>종고유ID</th>
+                            <th>국명</th>
+                            <th>학명</th>
+                            <th>위도</th>
+                            <th>경도</th>
+                            <th>채집일</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewTbody">
+                        <tr>
+                            <td colspan="8" class="muted">아직 추가된 행이 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="card-body actions">
+                <button class="btn" id="btnDeleteRow" disabled>선택 행 삭제</button>
+                <button class="btn primary" id="btnExportXlsx" disabled>엑셀로 내보내기</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ✅ 템플릿 선택 모달 -->
+    <div id="templateModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-backdrop" data-close="1"></div>
+
+        <div class="modal-panel">
+            <div class="modal-header">
+                <div>
+                    <div id="modalTitle" class="modal-title">템플릿 유형 선택</div>
+                    <div class="modal-sub">먼저 “표본 / 관찰” 중 하나를 선택하세요.</div>
+                </div>
+                <button class="icon-btn" id="btnCloseModal" aria-label="Close" title="Close">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="segmented" id="typeSegment">
+                    <button class="seg-btn active" data-type="specimen">표본</button>
+                    <button class="seg-btn" data-type="observation">관찰</button>
+                </div>
+
+                <div id="mediaBlock" class="form-block hidden">
+                    <div class="form-label">관찰 미디어 타입</div>
+                    <div class="radio-row">
+                        <label class="radio">
+                            <input type="radio" name="mediaType" value="OB" checked />
+                            <span>OB (일반)</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="mediaType" value="OI" />
+                            <span>OI (이미지)</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="mediaType" value="OM" />
+                            <span>OM (동영상)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:14px;">
+                    <div class="card-title">템플릿 기본 정보</div>
+                    <div class="card-body grid2">
+                        <div class="field">
+                            <div class="label">사업명</div>
+                            <select id="selProject" class="input" disabled>
+                                <option value="">템플릿 유형 선택 후 선택</option>
+                            </select>
+                        </div>
+                
+                        <div class="field">
+                            <div class="label">사업년도</div>
+                            <input id="txtProjectYear" class="input" type="text" readonly placeholder="자동입력" />
+                        </div>
+                
+                        <div class="field">
+                            <div class="label">사업순번</div>
+                            <input id="txtProjectOrder" class="input" type="text" readonly placeholder="자동입력" />
+                        </div>
+                
+                        <div class="field">
+                            <div class="label">기관명</div>
+                            <select id="selInstitution" class="input" disabled>
+                                <option value="">템플릿 유형 선택 후 선택</option>
+                            </select>
+                        </div>
+                
+                        <div class="field">
+                            <div class="label">기관코드</div>
+                            <input id="txtInstitutionCode" class="input" type="text" readonly placeholder="자동입력" />
+                        </div>
+                
+                        <div class="field">
+                            <div class="label">분류군코드</div>
+                            <input id="txtTaxonCode" class="input" type="text" placeholder="예: IN / PL ..." />
+                        </div>
+                    </div>
+                
+                    <div class="card-body" style="margin-top:8px;">
+                        <button class="btn primary" id="btnMakeTemplate" disabled>템플릿 파일 생성</button>
+                        <span class="muted" style="margin-left:10px;">(유형/사업/기관 선택 후 활성화)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" id="btnCancelTemplate">취소</button>
+                <button class="btn primary" id="btnConfirmTemplate">확인</button>
+            </div>
+        </div>
+    </div>
+</section>
